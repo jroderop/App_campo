@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#001c1c">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Instalaciones">
+  <title>Instalaciones RUTE</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="vendor/fonts/fonts.css">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/><circle cx="12" cy="12" r="6.6"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.5l5 5 10-11"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3.5 8.5h3l1.6-2.5h7.8l1.6 2.5h3v10.5h-17z"/><circle cx="12" cy="13.2" r="3.6"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M4 18l5.5-5 4 3.5 2.5-2 4 3.5"/></symbol>
+    <symbol id="i-barcode" viewBox="0 0 24 24"><path d="M4 6v12M7 6v12M10.5 6v12M13 6v12M16.5 6v12M20 6v12"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="1.6"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3.5l8.5 4.5-8.5 4.5L3.5 8z"/><path d="M3.5 12l8.5 4.5 8.5-4.5M3.5 16l8.5 4.5 8.5-4.5"/></symbol>
+    <symbol id="i-sync" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 0 1-13 5.1M4.5 12a7.5 7.5 0 0 1 13-5.1"/><path d="M17.5 3v4h-4M6.5 21v-4h4"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18.5h10.5a4 4 0 0 0 .4-8 6 6 0 0 0-11.6 1.6A3.3 3.3 0 0 0 7 18.5z"/></symbol>
+    <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5l9.5 16.5h-19z"/><path d="M12 10v4.5M12 17.2v.3"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <!-- equipos -->
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-6.2-6.5-11.2a6.5 6.5 0 0 1 13 0C18.5 14.8 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.4"/></symbol>
+    <symbol id="i-rtu" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M8 7h8M8 10h5"/><circle cx="9" cy="15" r="1"/><circle cx="12" cy="15" r="1"/><circle cx="15" cy="15" r="1"/></symbol>
+    <symbol id="i-level" viewBox="0 0 24 24"><path d="M12 2.5v7"/><path d="M9.5 9.5h5v4h-5z"/><path d="M3 17c1.5 0 1.5-1.2 3-1.2s1.5 1.2 3 1.2 1.5-1.2 3-1.2 1.5 1.2 3 1.2 1.5-1.2 3-1.2 1.5 1.2 3 1.2M3 20.5c1.5 0 1.5-1.2 3-1.2s1.5 1.2 3 1.2 1.5-1.2 3-1.2 1.5 1.2 3 1.2 1.5-1.2 3-1.2 1.5 1.2 3 1.2"/></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4-5"/><circle cx="12" cy="16" r="1.4"/><path d="M4 19.5h16"/></symbol>
+    <symbol id="i-pipe" viewBox="0 0 24 24"><path d="M2.5 9.5h7v5h-7M21.5 9.5h-7v5h7"/><path d="M9.5 8v8M14.5 8v8"/><path d="M12 9.5V4.5M10 4.5h4"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3.5s6 6.4 6 10.6a6 6 0 0 1-12 0C6 9.9 12 3.5 12 3.5z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/></symbol>
+    <symbol id="i-solar" viewBox="0 0 24 24"><path d="M5 5.5h14l2.5 10h-19z"/><path d="M4 10.5h16M9.5 5.5l-1 10M14.5 5.5l1 10M12 15.5v4M8.5 19.5h7"/></symbol>
+    <symbol id="i-meter" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M2.5 12H5M19 12h2.5"/><rect x="9" y="9.5" width="6" height="2.5" rx=".5"/><path d="M12 14.5v1.5"/></symbol>
+    <symbol id="i-antenna" viewBox="0 0 24 24"><path d="M12 11v10M9 21h6"/><circle cx="12" cy="9.5" r="1.5"/><path d="M8.5 6a5 5 0 0 0 0 7M15.5 6a5 5 0 0 1 0 7M5.8 3.5a8.5 8.5 0 0 0 0 12M18.2 3.5a8.5 8.5 0 0 1 0 12"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6.5h11M9 12h11M9 17.5h11"/><path d="M4.5 6.5h.5M4.5 12h.5M4.5 17.5h.5"/></symbol>
+  </svg>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true" id="brand-mark">IR</div>
+      <div class="brand-text">
+        <div class="brand-title" id="brand-title">Instalaciones RUTE</div>
+        <div class="brand-sub" id="brand-sub">Proyecto RUTE</div>
+      </div>
+    </div>
+    <span class="net" id="net"><span class="dot"></span><span id="net-txt">En línea</span></span>
+    <button class="icon-btn" id="btn-settings" aria-label="Ajustes"><svg class="icon"><use href="#i-gear"/></svg></button>
+  </header>
+
+  <!-- INICIO -->
+  <main class="view" id="view-home">
+    <section class="home-hero">
+      <button class="btn-new" id="btn-new">
+        <span>Nueva instalación<small>Ubicación, equipos, fotos y envío</small></span>
+        <span class="plus"><svg class="icon"><use href="#i-plus"/></svg></span>
+      </button>
+      <div class="syncbar" id="syncbar">
+        <svg class="icon" id="sync-icon"><use href="#i-cloud"/></svg>
+        <div class="txt"><b id="sync-title">Todo enviado</b><span id="sync-sub">No hay registros pendientes</span></div>
+        <button class="btn btn-sm" id="btn-sync"><svg class="icon"><use href="#i-sync"/></svg>Enviar</button>
+      </div>
+    </section>
+
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="tab-local" aria-selected="true">En este móvil <span class="count" id="count-local">0</span></button>
+      <button class="tab" role="tab" id="tab-server" aria-selected="false" hidden>En el servidor</button>
+    </div>
+
+    <section id="pane-local" class="list"></section>
+
+    <section id="pane-server" hidden>
+      <form class="search" id="server-search">
+        <input class="input" id="server-q" type="search" placeholder="Buscar por nombre o instalador" autocomplete="off">
+        <button class="btn" type="submit">Buscar</button>
+      </form>
+      <div class="list" id="server-list"></div>
+    </section>
+  </main>
+
+  <!-- FORMULARIO -->
+  <main class="view view-form" id="view-form" hidden>
+    <div class="form-head">
+      <div class="form-head-row">
+        <button class="icon-btn" id="btn-form-close" aria-label="Volver al inicio"><svg class="icon"><use href="#i-back"/></svg></button>
+        <h2 id="step-title">Identificación</h2>
+        <span class="step-count" id="step-count">1/3</span>
+      </div>
+      <div class="progress" id="progress"></div>
+      <div class="form-mode" id="form-mode" hidden></div>
+    </div>
+    <div id="step-body"></div>
+  </main>
+
+  <nav class="formbar" id="formbar" hidden>
+    <div class="formbar-in">
+      <button class="btn" id="btn-prev"><svg class="icon"><use href="#i-back"/></svg>Anterior</button>
+      <div class="saved" id="saved">Borrador</div>
+      <button class="btn btn-primary" id="btn-next">Siguiente<svg class="icon"><use href="#i-next"/></svg></button>
+    </div>
+  </nav>
+
+  <!-- AJUSTES -->
+  <main class="view" id="view-settings" hidden>
+    <div class="form-head">
+      <div class="form-head-row">
+        <button class="icon-btn" id="btn-settings-close" aria-label="Volver al inicio"><svg class="icon"><use href="#i-back"/></svg></button>
+        <h2>Ajustes</h2>
+      </div>
+    </div>
+    <div class="settings">
+      <section class="panel">
+        <h3>Conexión con ArcGIS Online</h3>
+        <div class="field">
+          <label class="field-label" for="set-key">Clave de acceso (API key)</label>
+          <div class="input-row">
+            <input class="input mono" id="set-key" type="password" autocomplete="off" spellcheck="false" placeholder="AAPT…">
+            <button class="icon-btn" id="btn-key-eye" type="button" aria-label="Mostrar clave"><svg class="icon"><use href="#i-eye"/></svg></button>
+          </div>
+          <div class="field-hint">Se guarda solo en este dispositivo.</div>
+        </div>
+        <div class="field">
+          <label class="field-label" for="set-url">Servicio de entidades</label>
+          <input class="input mono" id="set-url" type="url" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="photo-actions">
+          <button class="btn btn-primary" id="btn-test">Guardar y probar</button>
+        </div>
+        <div id="diag"></div>
+      </section>
+
+      <section class="panel">
+        <h3>Cómo conseguir la clave</h3>
+        <ol>
+          <li>En ArcGIS Online, con la cuenta Creator: Contenido › Nuevo elemento › Credenciales de desarrollador › Credenciales de clave de API.</li>
+          <li>Privilegios: solo edición de entidades.</li>
+          <li>Acceso a elementos: solo la capa del proyecto.</li>
+          <li>Caducidad corta (30 días) y genera la clave.</li>
+        </ol>
+      </section>
+
+      <section class="panel">
+        <h3>Datos en este móvil</h3>
+        <dl class="kv" id="local-stats"></dl>
+        <div class="photo-actions">
+          <button class="btn btn-sm" id="btn-clear-sent">Borrar enviados</button>
+          <button class="btn btn-sm btn-danger" id="btn-clear-all">Borrar todo</button>
+        </div>
+      </section>
+
+      <p class="eyebrow" id="app-version"></p>
+    </div>
+  </main>
+
+  <!-- LECTOR DE CÓDIGOS -->
+  <div class="overlay" id="scanner" hidden>
+    <div style="position:relative;overflow:hidden">
+      <video id="scan-video" muted playsinline></video>
+      <div class="scan-frame"></div>
+    </div>
+    <div class="scan-bar">
+      <p id="scan-msg">Encuadra el código de barras o QR</p>
+      <button class="btn" id="btn-scan-cancel">Cancelar</button>
+    </div>
+  </div>
+
+  <div class="sheet-back" id="sheet" hidden>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <h3 id="sheet-title"></h3>
+      <p id="sheet-text"></p>
+      <div class="sheet-actions">
+        <button class="btn" id="sheet-cancel">Cancelar</button>
+        <button class="btn btn-primary" id="sheet-ok">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <input type="file" id="file-camera" accept="image/*" capture="environment" hidden>
+  <input type="file" id="file-gallery" accept="image/*" multiple hidden>
+
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="vendor/zxing/zxing.min.js" defer></script>
+  <script src="js/config.js"></script>
+  <script src="js/form-schema.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/agol.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/geo.js"></script>
+  <script src="js/photos.js"></script>
+  <script src="js/scanner.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
